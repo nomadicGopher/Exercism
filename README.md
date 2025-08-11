@@ -1,1 +1,1 @@
-View my [**profile page**](https://exercism.org/profiles/nomadicGopher).
+[**Exercism Profile Page**](https://exercism.org/profiles/nomadicGopher).
