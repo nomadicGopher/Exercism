@@ -1,47 +1,65 @@
 #!/bin/bash
 
-# Define the track you want to download exercises for
-TRACK="go"
+# Check if a track argument is provided; if not, exit with an error message
+if [ -z "$1" ]; then
+    echo "Error: No track specified. Please provide a track as an argument."
+    echo "Usage: $0 <track>"
+    exit 1
+fi
 
-# Define the directory where you want to save the exercises
-DOWNLOAD_DIR="$HOME/exercism/$TRACK"
+# Set the track to the first argument
+TRACK="$1"
 
-echo "Attempting to download all active '$TRACK' exercises to: $DOWNLOAD_DIR"
-echo "Please ensure you have the exercism CLI installed and configured with your API token."
-echo ""
+# Check if the exercism command is available
+if ! command -v exercism &> /dev/null; then
+    echo "Error: Exercism CLI not found. Please ensure you have it installed and configured."
+    exit 1
+fi
 
-# Create the download directory if it doesn't exist
-mkdir -p "$DOWNLOAD_DIR"
+# Get Exercism workspace
+WORKSPACE=$(exercism -w 2>/dev/null)
 
-# Change to the download directory
-cd "$DOWNLOAD_DIR" || { echo "Error: Could not change to directory $DOWNLOAD_DIR"; exit 1; }
+# Check if the exercism command was successful
+if ! WORKSPACE; then
+    echo "Error: Failed to retrieve Exercism workspace. Please ensure you have the Exercism CLI installed and fully configured."
+    exit 1
+fi
 
-# Get a list of all active exercises for the specified track
-# The `exercism list` command is used, and we filter for the desired track
-# We then extract the exercise slug (e.g., "hello-world", "two-fer")
-# This assumes that `exercism list` output format is consistent.
-echo "Fetching list of active '$TRACK' exercises..."
-EXERCISES=$(exercism list | grep "track:$TRACK" | awk '{print $NF}' | tr -d '()')
+# Print the workspace path
+echo "Exercism workspace is located at: $WORKSPACE"
 
+# Fetch exercises from the Exercism API
+API_URL="https://exercism.org/api/v2/tracks/$TRACK/exercises"
+RESPONSE=$(curl -s "$API_URL")
+
+# Check if the API call was successful
+if ! curl -s "$API_URL"; then
+    echo "Error: Failed to fetch exercises from the API."
+    exit 1
+fi
+
+# Parse the JSON response to extract exercise slugs
+EXERCISES=$(echo "$RESPONSE" | jq -r '.exercises[] | .slug')
+
+# Check if any exercises were found
 if [ -z "$EXERCISES" ]; then
-    echo "No active '$TRACK' exercises found or there was an issue fetching the list."
-    echo "Please check your exercism CLI configuration and internet connection."
+    echo "No exercises found for track: $TRACK"
     exit 0
 fi
 
-echo "Found the following active exercises for '$TRACK':"
+# Print the list of exercise slugs
+echo "Exercises for track '$TRACK':"
 echo "$EXERCISES"
-echo ""
 
-# Loop through each exercise and download it
-for EXERCISE in $EXERCISES; do
-    echo "Downloading '$EXERCISE'..."
-    exercism download --track="$TRACK" --exercise="$EXERCISE"
-    if [ $? -ne 0 ]; then
-        echo "Warning: Failed to download '$EXERCISE'. Moving to the next exercise."
+# Download each exercise using the Exercism CLI
+for SLUG in $EXERCISES; do
+    DOWNLOAD_OUTPUT=$(exercism download -e "$SLUG" -t "$TRACK" 2>&1)
+    if ! exercism download -e "$SLUG" -t "$TRACK"; then
+        echo "Error downloading exercise: $SLUG"
+        echo "Details: $DOWNLOAD_OUTPUT"
+    else
+        echo "Downloaded exercise: $SLUG"
     fi
-    echo "-------------------------------------"
 done
 
-echo "All active '$TRACK' exercises have been processed."
-echo "You can find them in: $DOWNLOAD_DIR"
+echo "All exercises have been processed."
