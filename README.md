@@ -1,7 +1,7 @@
 [**Exercism Profile Page**](https://exercism.org/profiles/nomadicGopher)
 
 ## Legend <!--🔴🟠🟡⚫🔵⚪⚠️-->
-🟠 Not Started  
+🟠 In Progress  
 🟢 Complete
 
 ## Languages & Exercises
@@ -13,3 +13,5 @@
   * 🟢 **vehicle-purchase**: Learn about comparison and conditional-ifs while preparing for your next vehicle purchase.
   * 🟢 **weather-forecast**: Learn about comments by helping a weather station manage their weather forecasting program.
   * 🟢 **welcome-to-tech-palace**: Learn about strings and the strings package by generating text for a store's new display.
+* **python**
+  * 🟠 **gidos-gorgeous-lasagna**: Learn the basics of Python by cooking Guido's Gorgeous Lasagna.
