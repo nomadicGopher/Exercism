@@ -7,6 +7,7 @@
 ## Languages & Exercises
 * **go**
   * 🟢 **annalyns-infiltration**: Learn about booleans by helping Annalyn free her best friend.
+  * 🟠 **card-tricks**: Learn about slices by doing card tricks.
   * 🟢 **cars-assemble**: Learn about numbers and type conversion by analyzing an assembly line in a car factory.
   * 🟢 **lasagna**: Learn about packages, functions, and variables by helping Gopher cook lasagna.
   * 🟢 **party-robot**: Learn about strings by programming a party robot.
