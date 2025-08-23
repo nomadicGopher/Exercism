@@ -32,16 +32,17 @@ echo "Exercism workspace is located at: $WORKSPACE"
 API_URL="https://exercism.org/api/v2/tracks/$TRACK/exercises"
 
 # Check if the API URL is reachable
-if ! curl -s --head "$API_URL" | grep "200 OK" > /dev/null; then
-    echo "Error: Failed to reach the API URL. Please check your internet connection or the API URL."
+HTTP_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "$API_URL")
+if [ "$HTTP_RESPONSE" -ne 200 ]; then
+    echo "Error: Failed to reach the API URL. HTTP response code: $HTTP_RESPONSE"
     exit 1
 fi
 
 # Fetch exercises from the Exercism API
 RESPONSE=$(curl -s "$API_URL")
 
-# Parse the JSON response to extract exercise slugs
-EXERCISES=$(echo "$RESPONSE" | jq -r '.exercises[] | .slug')
+# Extract exercise slugs using grep and sed
+EXERCISES=$(echo "$RESPONSE" | grep -o '"slug":"[^"]*"' | sed 's/"slug":"//;s/"//')
 
 # Check if any exercises were found
 if [ -z "$EXERCISES" ]; then
@@ -62,4 +63,4 @@ for SLUG in $EXERCISES; do
     fi
 done
 
-echo "All exercises have been processed."
+echo "Process is finished."
