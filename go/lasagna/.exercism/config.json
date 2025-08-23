@@ -3,14 +3,16 @@
     "tehsphinx"
   ],
   "contributors": [
-    "norbs57"
+    "ekingery",
+    "andrerfcsantos",
+    "bobtfish"
   ],
   "files": {
     "solution": [
-      "card_tricks.go"
+      "lasagna.go"
     ],
     "test": [
-      "card_tricks_test.go"
+      "lasagna_test.go"
     ],
     "exemplar": [
       ".meta/exemplar.go"
@@ -19,7 +21,10 @@
       "go.mod"
     ]
   },
-  "blurb": "Learn about slices by doing card tricks.",
+  "forked_from": [
+    "csharp/lucians-luscious-lasagna"
+  ],
+  "blurb": "Learn about packages, functions, and variables by helping Gopher cook lasagna.",
   "custom": {
     "taskIdsEnabled": true
   }
