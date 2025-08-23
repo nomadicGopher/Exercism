@@ -7,7 +7,8 @@ if ! command -v exercism &> /dev/null; then
 fi
 
 # Check if the Exercism workspace is configured
-WORKSPACE=$(exercism -w 2>/dev/null)
+WORKSPACE=$(exercism w 2>/dev/null)
+
 if [ -z "$WORKSPACE" ]; then
     echo "Error: Exercism workspace is not configured. Please configure it using:"
     echo 'exercism configure -w "/path/to/exercises/workspace"'
