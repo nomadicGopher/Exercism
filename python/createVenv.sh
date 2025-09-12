@@ -29,4 +29,4 @@ fi
 pip install --upgrade pip
 
 # Install the required packages
-pip install pytest-cache pytest-subtests
+pip install pytest-cache pytest-subtests pylint

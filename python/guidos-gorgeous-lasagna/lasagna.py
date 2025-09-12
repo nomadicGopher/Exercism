@@ -1,19 +1,37 @@
-"""Functions used in preparing Guido's gorgeous lasagna.
+"""
+Lasagna Cooking Module
 
-Learn about Guido, the creator of the Python language:
-https://en.wikipedia.org/wiki/Guido_van_Rossum
+This module provides functions to assist in calculating the cooking and preparation 
+times for lasagna. It includes the expected baking time, preparation time per layer, 
+and functions to determine the remaining baking time and total elapsed time.
 
-This is a module docstring, used to describe the functionality
-of a module and its functions and/or classes.
+Constants:
+- EXPECTED_BAKE_TIME: The total expected baking time for the lasagna in minutes.
+- preparation_time: The time required to prepare each layer of the lasagna in minutes.
+
+Functions:
+- bake_time_remaining(elapsed_bake_time: int) -> int:
+    Calculates the remaining baking time based on the elapsed baking time.
+
+- preparation_time_in_minutes(number_of_layers: int) -> int:
+    Calculates the total preparation time based on the number of layers in the lasagna.
+
+- elapsed_time_in_minutes(number_of_layers: int, elapsed_bake_time: int) -> int:
+    Calculates the total elapsed time, including both preparation and baking time.
+
+Usage:
+To use this module, import it and call the functions with the appropriate parameters 
+to get the desired cooking times for your lasagna.
 """
 
+from typing import Optional
 
-#TODO: define your EXPECTED_BAKE_TIME (required) and PREPARATION_TIME (optional) constants below.
+EXPECTED_BAKE_TIME: int = 40
+preparation_time: Optional[int] = 10
 
-
-#TODO: Remove 'pass' and complete the 'bake_time_remaining()' function below.
-def bake_time_remaining():
-    """Calculate the bake time remaining.
+def bake_time_remaining(elapsed_bake_time: int) -> int:
+    """
+    Calculate the bake time remaining.
 
     :param elapsed_bake_time: int - baking time already elapsed.
     :return: int - remaining bake time (in minutes) derived from 'EXPECTED_BAKE_TIME'.
@@ -23,19 +41,25 @@ def bake_time_remaining():
     based on the `EXPECTED_BAKE_TIME`.
     """
 
-    pass
+    return EXPECTED_BAKE_TIME - elapsed_bake_time
 
+def preparation_time_in_minutes(number_of_layers: int) -> int:
+    """
+    Calculate the preparation time based on the number of layers.
 
-#TODO: Define the 'preparation_time_in_minutes()' function below.
-# To avoid the use of magic numbers (see: https://en.wikipedia.org/wiki/Magic_number_(programming)), you should define a PREPARATION_TIME constant.
-# You can do that on the line below the 'EXPECTED_BAKE_TIME' constant.
-# This will make it easier to do calculations, and make changes to your code.
+    :param number_of_layers: int - number of layers in the lasagna.
+    :return: int - total preparation time in minutes.
+    """
 
+    return preparation_time * number_of_layers
 
+def elapsed_time_in_minutes(number_of_layers: int, elapsed_bake_time: int) -> int:
+    """
+    Calculate the total elapsed time including preparation and baking.
 
-#TODO: define the 'elapsed_time_in_minutes()' function below.
-
-
-
-# TODO: Remember to go back and add docstrings to all your functions
-#  (you can copy and then alter the one from bake_time_remaining.)
+    :param number_of_layers: int - number of layers in the lasagna.
+    :param elapsed_bake_time: int - baking time already elapsed.
+    :return: int - total elapsed time in minutes.
+    """
+    
+    return preparation_time_in_minutes(number_of_layers) + elapsed_bake_time
