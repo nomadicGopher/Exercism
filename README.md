@@ -15,4 +15,5 @@
   * 🟢 **weather-forecast**: Learn about comments by helping a weather station manage their weather forecasting program.
   * 🟢 **welcome-to-tech-palace**: Learn about strings and the strings package by generating text for a store's new display.
 * **python**
-  * 🟠 **gidos-gorgeous-lasagna**: Learn the basics of Python by cooking Guido's Gorgeous Lasagna.
+  * 🟢 **gidos-gorgeous-lasagna**: Learn the basics of Python by cooking Guido's Gorgeous Lasagna.
+  * 🟠 **currency-exchange**: Learn about numbers by solving Chandler's currency exchange conundrums.
